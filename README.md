@@ -1,1 +1,1 @@
-https://dscand.github.io/CS455-M2DV1-Dijkstra/
+https://dscand.github.io/CS455-M2PR1-TacticalPathfinding/
