@@ -38,6 +38,39 @@ public class Graph : MonoBehaviour
 		}
 	}
 
+	public void SetupGraph(float blueCost) {
+		allNodes = new List<GameObject>();
+		List<Dijkstra.Connection> connections = new();
+
+		foreach (GraphConnection connection in this.connections) {
+			float distance = Vector3.Distance(connection.node1.transform.position, connection.node2.transform.position);
+			float blue;
+
+			if (connection.node2.GetComponent<CostNode>().blue) blue = blueCost;
+			else blue = 1f;
+			connections.Add(new Dijkstra.Connection() {
+				cost = connection.node2.GetComponent<CostNode>().cost * distance * blue,
+				fromNode = connection.node1,
+				toNode = connection.node2,
+			});
+			
+			if (connection.node1.GetComponent<CostNode>().blue) blue = blueCost;
+			else blue = 1f;
+			connections.Add(new Dijkstra.Connection() {
+				cost = connection.node1.GetComponent<CostNode>().cost * distance * blue,
+				fromNode = connection.node2,
+				toNode = connection.node1,
+			});
+
+			if (!allNodes.Contains(connection.node1)) allNodes.Add(connection.node1);
+			if (!allNodes.Contains(connection.node2)) allNodes.Add(connection.node2);
+		}
+
+		graph = new() {
+			connections = connections.ToArray(),
+		};
+	}
+
 	void OnDrawGizmosSelected()
 	{
 		foreach (GraphConnection connect in connections)

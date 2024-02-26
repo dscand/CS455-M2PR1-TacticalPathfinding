@@ -13,6 +13,7 @@ public class PathfinderDijkstra : Arriver
 	private int index = 0;
 
 	public float CompleteDistance = 0.2f;
+	public float BlueCost = 0f;
 
 	protected override void Start()
 	{
@@ -29,7 +30,7 @@ public class PathfinderDijkstra : Arriver
 			index++;
 			if (index < path.Count) SetTarget(path[index].toNode);
 			else {
-				SetNewPath(goalNode);
+				//SetNewPath(goalNode);
 			}
 		}
 
@@ -49,36 +50,13 @@ public class PathfinderDijkstra : Arriver
 		this.startNode = startNode;
 		this.goalNode = goalNode;
 
-		graph.SetNodes(startNode, goalNode);
+		//graph.SetNodes(startNode, goalNode);
+		graph.SetupGraph(BlueCost);
 		
-		
-		graph.allNodes = new List<GameObject>();
-		List<Dijkstra.Connection> connections = new();
-
-		foreach (Graph.GraphConnection connection in graph.connections) {
-			connections.Add(new Dijkstra.Connection() {
-				cost = connection.node2.GetComponent<CostNode>().cost,
-				fromNode = connection.node1,
-				toNode = connection.node2,
-			});
-			
-			connections.Add(new Dijkstra.Connection() {
-				cost = connection.node1.GetComponent<CostNode>().cost,
-				fromNode = connection.node2,
-				toNode = connection.node1,
-			});
-
-			if (!graph.allNodes.Contains(connection.node1)) graph.allNodes.Add(connection.node1);
-			if (!graph.allNodes.Contains(connection.node2)) graph.allNodes.Add(connection.node2);
-		}
-
-		graph.graph = new() {
-			connections = connections.ToArray(),
-		};
 
 		path = Dijkstra.PathfindDijkstra(graph.graph, startNode, goalNode);
 		index = 0;
-		graph.SetPath(path);
+		//graph.SetPath(path);
 		SetTarget(path[0].toNode);
 
 

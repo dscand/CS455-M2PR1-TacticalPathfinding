@@ -114,13 +114,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   linearVelocity: {x: 0, y: 0, z: 0}
   angularVelocity: 0
-  maxSpeed: 1
-  maxAngularVelocity: 100
+  maxSpeed: 2
+  maxAngularVelocity: 200
   myTarget: {fileID: 0}
   startNode: {fileID: 0}
   goalNode: {fileID: 0}
   graph: {fileID: 0}
   CompleteDistance: 0.2
+  BlueCost: 1
 --- !u!1 &3128848788482552816
 GameObject:
   m_ObjectHideFlags: 0

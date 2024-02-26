@@ -5,4 +5,5 @@ using UnityEngine;
 public class CostNode : MonoBehaviour
 {
 	public float cost = 1f;
+	public bool blue = false;
 }
